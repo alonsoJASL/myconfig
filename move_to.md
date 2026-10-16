@@ -3,8 +3,8 @@
 Move the contents as instructed. 
 
 + ROFI: move contents from `rofi` folder to `~/.config/rofi/`
-    + Set shortcut <kbd>SUPER</kbd>+<kbd>R</kbd> : rofi show -run 
-    + Set shortcut <kbd>SUPER</kbd>+<kbd>W</kbd> : rofi show -window 
+    + Set shortcut <kbd>SUPER</kbd>+<kbd>R</kbd> : `rofi show -run -normal-window` 
+    + Set shortcut <kbd>SUPER</kbd>+<kbd>W</kbd> : `rofi show -window -normal-window`  
 + STARSHIP: move `starship.toml` to `~/.config/` 
 + KITTY: move contents from `kitty` to `~/.config/kitty/`
 + ALACRITTY: move contents from `alacritty` to `~/.config/alacritty/`

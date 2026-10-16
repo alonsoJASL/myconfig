@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Each line of the roots file is "<dir> [depth]", e.g.
+#   /data/cases 1
+#   ~/projects 2
+# The roots file sits next to the real (symlink-resolved) script.
+ROOTS="$(dirname "$(readlink -f "$0")")/roots"
+
+list() {
+  {
+    zoxide query -l 2>/dev/null                      # frecency-ranked first
+    [ -r "$ROOTS" ] || exit 0                        # no roots file: zoxide only
+    while read -r root depth || [ -n "$root" ]; do   # keep last line without \n
+      root="${root%$'\r'}"; depth="${depth%$'\r'}"   # tolerate CRLF
+      [ -z "$root" ] && continue
+      root="${root/#\~/$HOME}"
+      find "$root" -mindepth 1 -maxdepth "${depth:-1}" -type d 2>/dev/null
+    done < "$ROOTS"
+  } | sed "s|^$HOME|~|" | awk '!seen[$0]++'           # pretty + dedupe
+}
+
+choice=$(list | rofi -dmenu -i -p "go" -kb-custom-1 "Alt+t" \
+              -mesg "Enter: open folder   Alt+t: terminal here")
+rc=$?
+[ -z "$choice" ] && exit 0
+dir="${choice/#\~/$HOME}"
+[ -d "$dir" ] || { rofi -e "Not a directory: $dir"; exit 1; }
+
+case $rc in
+  0)  setsid -f pcmanfm "$dir" ;;
+  10) setsid -f kitty --working-directory="$dir" ;;
+esac

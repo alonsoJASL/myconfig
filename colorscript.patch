@@ -1,0 +1,602 @@
+diff --git a/colorscript.sh b/colorscript.sh
+index f7e7737..6afc075 100755
+--- a/colorscript.sh
++++ b/colorscript.sh
+@@ -2,11 +2,7 @@
+ 
+ # Simple CLI for shell-color-scripts
+ 
+-if [[ "$DEV" -gt 0 ]]; then
+-    DIR_COLORSCRIPTS="./colorscripts"
+-else
+-    DIR_COLORSCRIPTS="/opt/shell-color-scripts/colorscripts"
+-fi
++DIR_COLORSCRIPTS="$(dirname "$(realpath $0)")/colorscripts"
+ 
+ if command -v find &>/dev/null; then
+     LS_CMD="$(command -v find) ${DIR_COLORSCRIPTS} -maxdepth 1 -type f"
+diff --git a/colorscripts/debian b/colorscripts/debian
+deleted file mode 100755
+index ceaf5ea..0000000
+--- a/colorscripts/debian
++++ /dev/null
+@@ -1,39 +0,0 @@
+-#!/bin/sh
+-# Based on ufetch-debian
+-# https://gitlab.com/jschx/ufetch/-/blob/master/ufetch-debian
+-
+-if [ -x "$(command -v tput)" ]; then
+-	bold="$(tput bold)"
+-	black="$(tput setaf 0)"
+-	red="$(tput setaf 1)"
+-	green="$(tput setaf 2)"
+-	yellow="$(tput setaf 3)"
+-	blue="$(tput setaf 4)"
+-	magenta="$(tput setaf 5)"
+-	cyan="$(tput setaf 6)"
+-	white="$(tput setaf 7)"
+-	reset="$(tput sgr0)"
+-fi
+-
+-# you can change these
+-ic="${reset}"                       # info
+-c0="${reset}${red}"                 
+-c1="${reset}${green}"               
+-c2="${reset}${yellow}"               
+-c3="${reset}${blue}"               
+-c4="${reset}${magenta}"
+-c5="${reset}${cyan}"               
+-
+-## OUTPUT
+-
+-cat <<EOF
+-
+-${c0}     ,---._	${c1}     ,---._ 	${c2}     ,---._	${c3}     ,---._	${c4}     ,---._	${c5}     ,---._         
+-${c0}   /\`  __  \\	${c1}   /\`  __  \\	${c2}   /\`  __  \\	${c3}   /\`  __  \\	${c4}   /\`  __  \\	${c5}   /\`  __  \\      
+-${c0}  |   /    |	${c1}  |   /    |	${c2}  |   /    |	${c3}  |   /    |	${c4}  |   /    |	${c5}  |   /    |        
+-${c0}  |   \`.__.\`	${c1}  |   \`.__.\`	${c2}  |   \`.__.\`	${c3}  |   \`.__.\`	${c4}  |   \`.__.\`	${c5}  |   \`.__.\`       
+-${c0}   \        	${c1}   \        	${c2}   \       	${c3}   \       	${c4}   \       	${c5}   \                
+-${c0}    \`-,_    	${c1}    \`-,_   	${c2}    \`-,_  	${c3}    \`-,_  	${c4}    \`-,_  	${c5}    \`-,_             
+-${ic}
+-EOF
+-
+diff --git a/colorscripts/doom-original b/colorscripts/doom-original
+deleted file mode 100755
+index 2bdb7d3..0000000
+--- a/colorscripts/doom-original
++++ /dev/null
+@@ -1,58 +0,0 @@
+-#!/bin/sh
+-  
+-# Author: Ivo
+-# Source: http://crunchbang.org/forums/viewtopic.php?pid=237794#p237794
+-# ANSI Color -- use these variables to easily have different color
+-#    and format output. Make sure to output the reset sequence after 
+-#    colors (f = foreground, b = background), and use the 'off'
+-#    feature for anything you turn on.
+-
+-initializeANSI()
+-{
+-  esc=""
+-
+-  redf="${esc}[31m";     greenf="${esc}[32m"
+-  yellowf="${esc}[33m"   bluef="${esc}[34m";   
+-  cyanf="${esc}[36m";    purplef="${esc}[35m"   
+-  
+-  redfbright="${esc}[91m";     greenfbright="${esc}[92m"
+-  yellowfbright="${esc}[93m"   bluefbright="${esc}[94m";   
+-  cyanfbright="${esc}[96m";    purplefbright="${esc}[95m"   
+-                      
+-  boldon="${esc}[1m";    
+-  reset="${esc}[0m"
+-}
+-
+-# note in this first use that switching colors doesn't require a reset
+-# first - the new color overrides the old one.
+-
+-initializeANSI
+-
+-cat << EOF 
+-
+-
+-
+-${boldon}  ▓   ▓ ▓▓▓        ▓  ▓ ▓▓▓  ▓        ▓      ▓ ▓░   ░░▓  ▓▓    ▓  ▓▓     
+-${boldon}▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ░▓▓▓░▓▓▓▓▓▓▓▓░▓▒ ░░▓▓▓▓░▓▓▓▓░▓▓▓▓▓▓▓▓░▓▓▓▓░   ▓▓▓▓▓▓▓▓  
+-${boldon}  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓  ▓▓▓▓▓░▓▓   
+-${boldon}  ▓▓▓▓▓▓▓░ ▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓ ▓▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▒    ▓▓▓▓▒▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓   
+-${boldon}  ▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓░▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▓    ▓▓▒▓▓░▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓░ ▓░▓▓▓▓░    ▓▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓   
+-${boldon}  ▓▓▓▓░▓▓    ▓▓▓░▓▓░▓▓▓▓▓░▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░   
+-${boldon}  ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░   
+-${boldon}  ▓▓▓▓░▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓ ▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   
+-${boldon}  ▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓░▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓  ▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓ ▓▓▓▓▓▓░▓▓▓▓▓▓▓▓▓  ▓▓▓▓░▓▓ ░▓ ▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▓▓▒▓▓▓▓▓▓░       ▓░▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓       ▓░▓▓▓    ▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓ ▓▓▓▓▓▓▓▓            ▓▓▓▓▓▓▓▓▓    ▓▓▓▓░▒▓▓▓▓            ▓▓    ▓▓▓░░▓▓   
+-${boldon}  ▓▓▓▓▓▓ ▓▓░                  ░▓▓░         ▓▓░▓                     ▓▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓▓▓▓                                                          ░▓▓▓▓▓▓   
+-${boldon}  ▓▓▓▓▓                                                               ▓▓▓░░   
+-${boldon}  ░▓▓                                                                   ▒▓▓   
+-${reset}
+-EOF
+-
+diff --git a/colorscripts/doom-outlined b/colorscripts/doom-outlined
+deleted file mode 100755
+index e4914eb..0000000
+--- a/colorscripts/doom-outlined
++++ /dev/null
+@@ -1,58 +0,0 @@
+-#!/bin/sh
+-  
+-# Author: Ivo
+-# Source: http://crunchbang.org/forums/viewtopic.php?pid=237794#p237794
+-# ANSI Color -- use these variables to easily have different color
+-#    and format output. Make sure to output the reset sequence after 
+-#    colors (f = foreground, b = background), and use the 'off'
+-#    feature for anything you turn on.
+-
+-initializeANSI()
+-{
+-  esc=""
+-
+-  redf="${esc}[31m";     greenf="${esc}[32m"
+-  yellowf="${esc}[33m"   bluef="${esc}[34m";   
+-  cyanf="${esc}[36m";    purplef="${esc}[35m"   
+-  
+-  redfbright="${esc}[91m";     greenfbright="${esc}[92m"
+-  yellowfbright="${esc}[93m"   bluefbright="${esc}[94m";   
+-  cyanfbright="${esc}[96m";    purplefbright="${esc}[95m"   
+-                      
+-  boldon="${esc}[1m";    
+-  reset="${esc}[0m"
+-}
+-
+-# note in this first use that switching colors doesn't require a reset
+-# first - the new color overrides the old one.
+-
+-initializeANSI
+-
+-cat << EOF 
+-
+-
+-
+-${boldon}${yellowfbright}  ▓   ▓ ▓▓▓        ▓  ▓ ▓▓▓  ▓        ▓      ▓ ▓░   ░░▓  ▓▓    ▓  ▓▓     
+-${boldon}${yellowfbright}▓▓${boldon}${yellowfbright}▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ░▓▓▓░▓▓▓▓▓▓▓▓░▓▒ ░░▓▓▓▓░▓▓▓▓░▓▓▓▓▓▓▓▓░▓▓▓▓░   ▓▓▓▓▓${boldon}${yellowfbright}▓▓▓  
+-${boldon}${yellowfbright}  ▓▓${boldon}${bluefbright}▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓  ▓▓▓▓▓░${boldon}${yellowfbright}▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${bluefbright}▓▓▓▓░ ▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓ ▓▓▓▓▓▓${boldon}${yellowfbright}▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${bluefbright}▓▓▓▒    ▓▓▓▓▒▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓░▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${bluefbright}▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓░▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓   
+-${boldon}${yellowfbright}  ▓▓${boldon}${bluefbright}▓▓▓▓▓    ▓▓▒▓▓░▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓░ ▓░▓▓▓▓░    ▓▓▓▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓░░${boldon}${yellowfbright}▓▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${bluefbright}▓░▓▓    ▓▓▓░▓▓░▓▓▓▓▓░▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓▓░   
+-${boldon}${yellowfbright}  ▓▓${boldon}${redfbright}▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓░   
+-${boldon}${yellowfbright}  ▓▓${boldon}${redfbright}▓▓░▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓ ▓▓▓▓▓ ▓▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▓ ▓▓▓▓▓▓${boldon}${redfbright}░  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓▓   
+-${boldon}${yellowfbright}  ▓▓${boldon}${redfbright}░▓▓▓▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓░▓░${boldon}${yellowfbright}${boldon}${redfbright}▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ ▓▓░▓▓▓▓${boldon}${yellowfbright}▓▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓░▓  ▓▓${boldon}${redfbright}▓▓▓▓▓▓▓▓░▓▓▓▓▓ ▓▓▓▓▓▓░▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓  ▓▓▓▓░▓▓ ░▓ ▓${boldon}${redfbright}▓▓▓▓${boldon}${yellowfbright}▓▓  
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓▓▓▒▓▓▓${boldon}${yellowfbright}▓▓▓░       ▓░▓${boldon}${redfbright}▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓ ▓▓${boldon}${redfbright}▓▓▓▓▓▓▓▓${boldon}${yellowfbright}▓▓       ▓░▓▓▓     ▓${boldon}${redfbright}▓▓▓▓${boldon}${yellowfbright}▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓ ▓▓▓▓▓${boldon}${yellowfbright}▓▓▓            ▓▓${boldon}${redfbright}▓▓${boldon}${redfbright}▓▓▓${boldon}${yellowfbright}▓▓    ▓▓${boldon}${redfbright}▓▓░▒▓▓${boldon}${yellowfbright}▓▓           ▓▓     ▓${boldon}${redfbright}▓▓░░${boldon}${yellowfbright}▓▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓${boldon}${yellowfbright} ▓▓░                  ░▓▓░         ▓▓░▓                     ▓${boldon}${redfbright}▓▓▓▓▓${boldon}${yellowfbright}▓   
+-${boldon}${yellowfbright}  ▓▓▓${boldon}${redfbright}▓▓▓${boldon}${yellowfbright}▓▓                                                          ░▓${boldon}${redfbright}▓▓▓▓${boldon}${yellowfbright}▓   
+-${boldon}${yellowfbright}  ▓▓${boldon}${redfbright}▓${boldon}${yellowfbright}▓▓                                                               ▓${boldon}${redfbright}▓▓░${boldon}${yellowfbright}░   
+-${boldon}${yellowfbright}  ░▓▓${boldon}${redfbright}                                                                  ${boldon}${yellowfbright} ▒▓${boldon}${redfbright}${boldon}${yellowfbright}▓   
+-${reset}
+-EOF
+-
+diff --git a/colorscripts/hex b/colorscripts/hex
+deleted file mode 100755
+index a8dcb23..0000000
+--- a/colorscripts/hex
++++ /dev/null
+@@ -1,15 +0,0 @@
+-#!/usr/bin/env bash
+-
+-# Author: SuNjACk
+-# Source: http://crunchbang.org/forums/viewtopic.php?pid=135226#p135226
+-
+-xdef="${XRESOURCES:-$HOME/.Xresources}"
+-colors=( $( sed -re '/^!/d; /^$/d; /^#/d; s/(\*color)([0-9]):/\10\2:/g;' $xdef | grep -E 'color[0-9]+:' | sort | sed  's/^.*: *//g' ) )
+-
+-echo -e "\e[1;97m 
+- Black    Red      Green    Yellow   Blue     Magenta   Cyan    White   
+- ──────────────────────────────────────────────────────────────────────\e[0m"
+-for i in {0..7}; do echo -en "\e[$((30+$i))m ${colors[i]} \e[0m"; done
+-echo
+-for i in {8..15}; do echo -en "\e[1;$((82+$i))m ${colors[i]} \e[0m"; done
+-echo -e "\n"
+diff --git a/colorscripts/illumina b/colorscripts/illumina
+deleted file mode 100755
+index 657985c..0000000
+--- a/colorscripts/illumina
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#!/bin/sh
+-
+-# Author: venam
+-# Source: https://nixers.net/showthread.php?tid=1921
+-
+-cat << EOF
+- [1;93m._________________________________. [0;0;37m
+- [1;93m|[94;7;1m  [0;0;0m[0;0;46m        [96;7;1m       [0;0;45m       [95;7;1m       [0;0;0m[0;0;45m [0;0;0m[0;0;41m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[96;7;1m [0;0;0m[0;0;44m [0;0;0m               [0;34m_             [91;7;1m [0;0;0m[95;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[94;7;1m [0;0;0m               [0;34m//\             [0;0;41m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[94;7;1m [0;0;0m         [0;32m/[1;92m/-- [0;34m/[1;94m/  [0;36m\  [0;32m========, [0;0;41m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;44m [0;0;0m        [0;32m/[1;92m/   [0;34m/[1;94m/    [0;36m\        [0;32m/  [91;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;44m [0;0;0m       [0;32m/[1;92m/   [0;34m/[1;94m/      [0;36m\      [0;32m/   [91;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;44m [0;0;0m [1;91m__________  ___[0;0;41m [0;97;7;1m [0;0;0m[0;31m__  _________[91;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;42m [0;0;0m      [0;32m/     [0;34m\   [0;0;47m [91;7;1m [0;0;0m   [1;94m/[0;34m/  [1;92m/[0;32m/    [0;0;43m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;42m [0;0;0m     [0;32m/       [0;34m\      [1;94m/[0;34m/  [1;92m/[0;32m/     [0;0;43m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;42m [0;0;0m    [0;32m/__________________[1;92m/[0;32m/      [0;0;43m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[92;7;1m [0;0;0m               [0;34m\  [1;94m/[0;34m/           [93;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[92;7;1m [0;0;0m                [0;34m\[1;94m/[0;34m/            [93;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[0;0;40m [0;0;0m[0;0;42m [0;0;0m                [1;94m"            [0;0;43m [0;0;0m[97;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m|[92;7;1m [0;0;0m[90;7;1m [0;0;0m[0;0;40m        [0;0;0m[90;7;1m       [0;0;0m[0;0;47m       [0;0;0m[97;7;1m       [0;0;0m[0;0;47m [0;0;0m[93;7;1m [0;0;0m[1;93m| [0;0;37m
+- [1;93m'---------------------------------' [0;0;37m
+-EOF
+diff --git a/colorscripts/kaisen b/colorscripts/kaisen
+deleted file mode 100755
+index 706b4b3..0000000
+--- a/colorscripts/kaisen
++++ /dev/null
+@@ -1,63 +0,0 @@
+-#!/bin/sh
+-  
+-# Author: Ivo
+-# Source: http://crunchbang.org/forums/viewtopic.php?pid=237794#p237794
+-# ANSI Color -- use these variables to easily have different color
+-#    and format output. Make sure to output the reset sequence after 
+-#    colors (f = foreground, b = background), and use the 'off'
+-#    feature for anything you turn on.
+-
+-initializeANSI()
+-{
+-  esc=""
+-
+-  redf="${esc}[31m";     greenf="${esc}[32m"
+-  yellowf="${esc}[33m"   bluef="${esc}[34m";   
+-  cyanf="${esc}[36m";    purplef="${esc}[35m"   
+-  
+-  redfbright="${esc}[91m";     greenfbright="${esc}[92m"
+-  yellowfbright="${esc}[93m"   bluefbright="${esc}[94m";   
+-  cyanfbright="${esc}[96m";    purplefbright="${esc}[95m"   
+-                      
+-  boldon="${esc}[1m";    
+-  reset="${esc}[0m"
+-}
+-
+-# note in this first use that switching colors doesn't require a reset
+-# first - the new color overrides the old one.
+-
+-initializeANSI
+-
+-cat << EOF 
+-
+-${boldon}${redfbright}                                          ░▓▓                              
+-${boldon}${redfbright}                                       ▓▓▓▓▓▓▓▓▓                                
+-${boldon}${redfbright}                                ▓░  ▓▓▓▓▓▓▓▓▓▓▓                                 
+-${boldon}${redfbright}                              ▓▓▓  ▓▓▓▓▓▓▓▓▓▓▓▓                                 
+-${boldon}${redfbright}                        ▓    ▓▓▓   ▓▒      ░▓▓▓▓▓                               
+-${boldon}${redfbright}                      ▒▓▓   ▓▓▓▓          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒                   
+-${boldon}${redfbright}                      ▓▓▓  ▓▓▓▓▓   ▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓               
+-${boldon}${redfbright}                      ▓▓▓▓▒▓▓▓▓▓ ▓▓▓▓▒   ▓▓░      ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓             
+-${boldon}${redfbright}                     ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                   ▒▓▓▓▓▓▓▓▓▓▓▓            
+-${boldon}${redfbright}                     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓           
+-${boldon}${redfbright}                     ▓▓▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓          ▓           
+-${boldon}${redfbright}                     ▓▓▓▓▓ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▒▓▓▓▓▓▓▓▓▓▓▓                      
+-${boldon}${redfbright}                    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓                      
+-${boldon}${redfbright}                   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓                     
+-${boldon}${redfbright}            ▓     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓▓▓▓▓▓▓▓▓▓▓                  
+-${boldon}${redfbright}           ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░   ▓▓▓▓▓▓▓▓▓▒           ▓▓▓▓▓▓▓▓▓▓▓▓                
+-${boldon}${redfbright}            ▓▓▓▓▓▓▓▓▓▓▓▓▓▓     ▓▓▓▓▓▓▓     ▓▓▓▓▓▓▓▓▓▓ ░▓▓▓▓▓▓▓▓▓▓▓              
+-${boldon}${redfbright}            ▓▓▓▓▓▓▓▓▓▓▓▓       ▓▓▓▓▓░    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓             
+-${boldon}${redfbright}             ▓▓▓▓▓ ▓▓  ▒     ▓▓▓▓▓▓▓         ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒            
+-${boldon}${redfbright}               ▓▓▓       ▓▓▓▓▓▓▓▓▓▓            ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓             
+-${boldon}${redfbright}                       ▓▓▓▓▓▓▓  ▒▓▓            ▓▓▓▓▓▓▓▓▓▓▓▓      ▓▓             
+-${boldon}${redfbright}                    ▓▓▓▓▓▓▓▓                  ▓▓▓▓▓▓▓▓▓▓▓▓                      
+-${boldon}${redfbright}                      ▓▓▓▓▓▓                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓                      
+-${boldon}${redfbright}                         ▓▓▓▓▓          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                      
+-${boldon}${redfbright}                                   ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓       
+-${reset}
+-
+-
+-
+-EOF
+-
+diff --git a/colorscripts/pukeskull b/colorscripts/pukeskull
+deleted file mode 100755
+index 3877b83..0000000
+--- a/colorscripts/pukeskull
++++ /dev/null
+@@ -1,74 +0,0 @@
+-#!/bin/sh
+-#
+-#  ┳━┓┳━┓0┏┓┓┳━┓┏━┓┓ ┳
+-#  ┃┳┛┃━┫┃┃┃┃┃━┃┃ ┃┃┃┃
+-#  ┃┗┛┛ ┃┃┃┗┛┻━┛┛━┛┗┻┛
+-#     ┳━┓┳ ┓┳┏ ┳━┓
+-#     ┃━┛┃ ┃┣┻┓┣━ 
+-#     ┇  ┗━┛┃ ┛┻━┛
+-#    ┓━┓┳┏ ┳ ┓┳  ┳
+-#    ┗━┓┣┻┓┃ ┃┃  ┃
+-#    ━━┛┇ ┛┗━┛┗━┛┗━┛
+-#
+-# the worst color script
+-# by xero <http://0w.nz>
+-
+-cat << 'EOF'
+-[1;97m                  .................
+-[1;97m             .syhhso++++++++/++osyyhys+.
+-[1;97m          -oddyo+o+++++++++++++++o+oo+osdms:
+-[1;97m        :dmyo++oosssssssssssssssooooooo+/+ymm+`
+-[1;97m       hmyo++ossyyhhddddddddddddhyyyssss+//+ymd-
+-[1;97m     -mho+oosyhhhddmmmmmmmmmmmmmmddhhyyyso+//+hN+
+-[1;97m     my+++syhhhhdmmNNNNNNNNNNNNmmmmmdhhyyyyo//+sd:
+-[1;97m    hs//+oyhhhhdmNNNNNNNNNNNNNNNNNNmmdhyhhhyo//++y
+-[1;97m    s+++shddhhdmmNNNNNNNNNNNNNNNNNNNNmdhhhdhyo/++/
+-[1;97m    'hs+shmmmddmNNNNNNNNNNNNNNNNNNNNNmddddddhs+oh/
+-[1;97m     shsshdmmmmmNNMMMMMMMMMMMNNNNNNNNmmmmmmdhssdh-
+-[1;97m      +ssohdmmmmNNNNNMMMMMMMMNNNNNNmmmmmNNmdhhhs:`
+-[1;97m  -+oo++////++sydmNNNNNNNNNNNNNNNNNNNdyyys/--://+//:
+-[1;97m  d/+hmNNNmmdddhhhdmNNNNNNNNNNNNNNNmdhyyyhhhddmmNmdyd-
+-[1;97m  ++--+ymNMMNNNNNNmmmmNNNNNNNNNNNmdhddmNNMMMMMMNmhyss
+-[1;97m   /d+` -+ydmNMMMMMMNNmNMMMMMMMmmmmNNMMMMMNNmh- :sdo
+-[1;97m    sNo   ` /ohdmNNMMMMNNMMMMMNNNMMMMMNmdyo/ `  hNh
+-[1;97m     M+'     ``-/oyhmNNMNhNMNhNMMMMNmho/ `     'MN/
+-[1;97m     d+'         `-+osydh0w.nzmNNmho:          'mN:
+-[1;97m    +o/             ` :oo+:s :+o/-`            -dds
+-[1;97m   :hdo       [0;31mx[1;97m    `-/ooss:':+ooo: `    [0;31m0[1;97m      :sdm+
+-[1;97m  +dNNNh+         :ydmNNm'   `sddmyo          +hmNmds
+-[1;97m dhNMMNNNNmddhsyhdmmNNNM:      NNmNmhyo+oyyyhmNMMNmysd
+-[1;97m ydNNNNNh+/++ohmMMMMNMNh       oNNNNNNNmho++++yddhyssy
+-[1;97m              `:sNMMMMN'       `mNMNNNd/`
+-    [1;91mXXXX[0;31mXXXX[1;93mX[1;97m y/hMMNm/  .dXb.  -hdmdy: ` [0;34mXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;97m `o+hNNds. -ymNNy-  .yhys+/`` [0;34mXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;97m +-+//o/+odMNMMMNdmh++////-/s [0;34mXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXX[1;97m mhNd -+d/+myo++ysy/hs -mNsdh/ [0;34mXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;97m mhMN+ dMm-/-smy-::dMN/sMMmdo [0;34mXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXX[1;97m NMy+NMMh oMMMs yMMMyNMMs+ [0;34mXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXX[1;97m dy-hMMm+dMMMdoNMMh ydo [1;94mX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mX [1;97m smm 'NMMy dms  sm  [1;94mXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXX                   [1;94mXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-    [1;91mXXXX[0;31mXXXX[1;93mXXXX[0;33mXXXX[1;95mXXXX[0;35mXXXX[1;92mXXXX[0;32mXXXX[1;94mXXXX[0;34mXXXX[1;97mXXXX[0;37mXXXX
+-EOF
+- 
+diff --git a/colorscripts/suckless b/colorscripts/suckless
+deleted file mode 100755
+index dbc59be..0000000
+--- a/colorscripts/suckless
++++ /dev/null
+@@ -1,27 +0,0 @@
+-#!/usr/bin/env bash
+-
+-# Author: HostGrady
+-# Font used: https://patorjk.com/software/taag/#p=display&f=Cricket&t=suckless
+-
+-
+-if [ -x "$(command -v tput)" ]; then
+-    bold="$(tput bold)"
+-    blue="$(tput setaf 4)" 
+-    cyan="$(tput setaf 6)"  
+-    reset="$(tput sgr0)"
+-fi
+-
+-art="${bold}${blue}                  __    __                   
+-.-----.--.--.----|  |--|  .-----.-----.-----.
+-|__ --|  |  |  __|    <|  |  -__|__ --|__ --|
+-|_____|_____|____|__|__|__|_____|_____|_____|
+-${reset}${cyan}          software that sucks less${reset}            "                                                      
+-
+-# use this as a base if you want to redo this one
+-#art="                  __    __                   
+-#.-----.--.--.----|  |--|  .-----.-----.-----.
+-#|__ --|  |  |  __|    <|  |  -__|__ --|__ --|
+-#|_____|_____|____|__|__|__|_____|_____|_____|
+-#        software that sucks less            "
+-
+-echo "$art"
+diff --git a/colorscripts/tux b/colorscripts/tux
+deleted file mode 100755
+index df027ac..0000000
+--- a/colorscripts/tux
++++ /dev/null
+@@ -1,103 +0,0 @@
+-#!/bin/sh
+-
+-# ANSI Color -- use these variables to easily have different color
+-#    and format output. Make sure to output the reset sequence after 
+-#    colors (f = foreground, b = background), and use the 'off'
+-#    feature for anything you turn on.
+-
+-initializeANSI()
+-{
+-  esc=""
+-
+-  blackf="${esc}[30m";   redf="${esc}[31m";    greenf="${esc}[32m"
+-  yellowf="${esc}[33m"   bluef="${esc}[34m";   purplef="${esc}[35m"
+-  cyanf="${esc}[36m";    whitef="${esc}[37m"
+-  
+-  blackb="${esc}[40m";   redb="${esc}[41m";    greenb="${esc}[42m"
+-  yellowb="${esc}[43m"   blueb="${esc}[44m";   purpleb="${esc}[45m"
+-  cyanb="${esc}[46m";    whiteb="${esc}[47m"
+-
+-  boldon="${esc}[1m";    boldoff="${esc}[22m"
+-  italicson="${esc}[3m"; italicsoff="${esc}[23m"
+-  ulon="${esc}[4m";      uloff="${esc}[24m"
+-  invon="${esc}[7m";     invoff="${esc}[27m"
+-
+-  reset="${esc}[0m"
+-}
+-
+-# note in this first use that switching colors doesn't require a reset
+-# first - the new color overrides the old one.
+-
+-initializeANSI
+-
+-#                      ▄█████▄
+-#                     █████████
+-#                    ████████▀██
+-#                   ██████████▄██
+-#                   ██▀▀███▀▀████
+-#                   ████ █ ██ ███
+-#                   █         ████
+-#                   █       ▄ ████
+-#                   ███▀▀▀▀▀▄▀████
+-#                   ██▀▀▀▀▀▀   ███▄
+-#                 ▄█▀          █████           
+-#                ███           ██████           
+-#               ███             ██████         
+-#              █▀██              ██████        
+-#              █ █               █ ████     
+-#              █ █               ██ ███      
+-#             ██ ▀               █▀ ████      
+-#             ███                   ████   
+-#            █████               ███ ███      
+-#            █▀▀███             █████████         
+-#           ▄█   ███           █▀ ████  ▀█
+-#         ▄█▀     ████         █   ▀     █
+-#        █         ████     █  █         ██
+-#         █         ██       █ █          ▀█
+-#        █           █      █  █          █
+-#        █           ███████████        ▄▀
+-#         █▄         █ ▀▀▀▀▀▀▀ █      ▄▀
+-#           ▀▀▀▀▀▄▄▄█▀         ▀▄    █
+-#                                ▀▀▀▀
+-
+-# play with these to change:
+-tuxbg=${cyanb}     # color behind tux
+-tuxfg=${blackf}     # tux line color
+-
+-# tip: auto update your drawings to see changes real-time
+-# while true; do (sleep 3s && clear && sh script); done
+-
+-cat << EOF
+-${tuxfg}${tuxbg}
+-                                                     
+-                      ▄█████▄                        
+-                     █████████                       
+-                    ${whiteb}████████▀██${tuxbg}                      
+-                   ${whiteb}██████████▄██${tuxbg}                     
+-                   ${whiteb}██▀▀███▀▀████${tuxbg}                     
+-                   ${whiteb}████ █ ██ ███${tuxbg}                     
+-                   ${yellowb}█         ████${tuxbg}                    
+-                   ${yellowb}█       ▄ ████${tuxbg}                    
+-                   ${yellowb}███▀▀▀▀▀▄${whiteb}▀████${tuxbg}                    
+-                   ${whiteb}██▀▀▀▀▀▀   ███${tuxbg}▄                   
+-                 ▄█${whiteb}▀          █████${tuxbg}                  
+-                ${whiteb}███           ██████${tuxbg}                 
+-               ${whiteb}███             ██████${tuxbg}                
+-              ${whiteb}█▀██              ██████${tuxbg}               
+-              ${whiteb}█ █               █ ████${tuxbg}               
+-              ${whiteb}█ █               ██ ███${tuxbg}               
+-             ${whiteb}██ ▀               █▀ ████${tuxbg}              
+-             ${whiteb}███                   ████${tuxbg}              
+-            ${whiteb}█████               ███ ███${tuxbg}              
+-            ${yellowb}█▀▀███${whiteb}             █████████${tuxbg}             
+-           ▄${yellowb}█   ███${whiteb}           █${yellowb}▀ ████  ▀█${tuxbg}            
+-         ▄█${yellowb}▀     ████${whiteb}         █${yellowb}   ▀     █${tuxbg}            
+-        █${yellowb}         ████${whiteb}     █  █${yellowb}         ██${tuxbg}           
+-         █${yellowb}         ██${whiteb}       █ █${yellowb}          ▀█${tuxbg}          
+-        █${yellowb}           █${whiteb}      █  █${yellowb}          █${tuxbg}           
+-        █${yellowb}           ███████████${yellowb}        ▄${tuxbg}▀            
+-         █${yellowb}▄         █${tuxbg} ▀▀▀▀▀▀▀ █${yellowb}      ▄${tuxbg}▀              
+-           ▀▀▀▀▀${yellowb}▄▄▄█${tuxbg}▀         ▀${yellowb}▄    █${tuxbg}                
+-                                ▀▀▀▀${tuxbg}                 
+-${reset}
+-EOF
+\ No newline at end of file
+diff --git a/colorscripts/xmonad b/colorscripts/xmonad
+deleted file mode 100755
+index 7949268..0000000
+--- a/colorscripts/xmonad
++++ /dev/null
+@@ -1,64 +0,0 @@
+-#!/bin/sh
+-  
+-# Author: Ivo
+-# Source: http://crunchbang.org/forums/viewtopic.php?pid=237794#p237794
+-# ANSI Color -- use these variables to easily have different color
+-#    and format output. Make sure to output the reset sequence after 
+-#    colors (f = foreground, b = background), and use the 'off'
+-#    feature for anything you turn on.
+-
+-initializeANSI()
+-{
+-  esc=""
+-
+-  redf="${esc}[31m";     greenf="${esc}[32m"
+-  yellowf="${esc}[33m"   bluef="${esc}[34m";   
+-  cyanf="${esc}[36m";    purplef="${esc}[35m"   
+-  
+-  redfbright="${esc}[91m";     greenfbright="${esc}[92m"
+-  yellowfbright="${esc}[93m"   bluefbright="${esc}[94m";   
+-  cyanfbright="${esc}[96m";    purplefbright="${esc}[95m"   
+-                      
+-  boldon="${esc}[1m";    
+-  reset="${esc}[0m"
+-}
+-
+-# note in this first use that switching colors doesn't require a reset
+-# first - the new color overrides the old one.
+-
+-initializeANSI
+-
+-cat << EOF 
+-
+-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                                            
+-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                                            
+-    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓                                            
+-    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓                                            
+-        ░▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░                                       
+-        ░▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░                                       
+-        ░▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒                                   
+-        ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                                   
+-        ▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓░░░▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+-            ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                            
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                            
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                            
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                            
+-                ▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+-                ▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+-            ░░░░▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+-            ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+-        ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓░                   
+-        ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ░▓▓▓▓▓▓▓▓▓▓▓░                   
+-        ░▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░       ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓               
+-        ░▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░       ░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓               
+-    ▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓░░░░        ░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒           
+-    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▒▓▓▓▓▓▓▓▓▓▓▓                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒           
+-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒           
+-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                    ▓▓▓▓▓▓▓▓▓▓▓▓▒           
+-▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒                    ▒▒▒▒▒▒▒▒▒▒▒▒▓      
+-
+-EOF
+-
