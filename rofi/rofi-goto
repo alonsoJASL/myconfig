@@ -26,6 +26,6 @@ dir="${choice/#\~/$HOME}"
 [ -d "$dir" ] || { rofi -e "Not a directory: $dir"; exit 1; }
 
 case $rc in
-  0)  setsid -f pcmanfm "$dir" ;;
+  0)  setsid -f pcmanfm "$dir" --new-win ;;
   10) setsid -f kitty --working-directory="$dir" ;;
 esac
